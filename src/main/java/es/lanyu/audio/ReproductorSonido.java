@@ -3,7 +3,7 @@ package es.lanyu.audio;
 import com.badlogic.gdx.audio.Sound;
 
 public final class ReproductorSonido {
-    static ConfiguracionAudio configuracion;
+    static AudioConfigurable configuracion;
     static float volumen = 1;
 
     public static void setConfiguracion(ConfiguracionAudio configuracion) {
@@ -14,8 +14,12 @@ public final class ReproductorSonido {
     private ReproductorSonido() {}
 
     public static void reproducirSonido(Sonido sonido) {
-        Sound s = sonido.getMedio();
-        if (s != null) s.play(volumen);
+        if (sonido != null) {
+            Sound s = sonido.getMedio();
+            if (s != null) {
+                s.play(volumen);
+            }
+        }
     }
 
     public static void establecerVolumen(float volumen) {

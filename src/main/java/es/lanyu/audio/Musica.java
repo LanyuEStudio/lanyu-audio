@@ -2,12 +2,8 @@ package es.lanyu.audio;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.utils.Json;
 
 import es.lanyu.commons.identificable.AbstractNombrable;
-import es.lanyu.commons.identificable.GestorIdentificables;
-import es.lanyu.commons.servicios.entidad.CargadorIdentificables;
-import es.lanyu.json.CargadorIdentificablesJson;
 
 public class Musica extends AbstractNombrable {
 
@@ -16,17 +12,17 @@ public class Musica extends AbstractNombrable {
     transient Music medio;
     String archivo;
 
-    public static void init(GestorIdentificables gestor) {
-        Json json = new Json();
-        json.addClassTag("archivo", String.class);
-        CargadorIdentificables cargador = new CargadorIdentificablesJson();
-        cargador.cargarNombrables("data\\musicas.mus", Musica.class, Musica.class, gestor);
-    }
-
     public static void setAssetManager(AssetManager assetManager) {
         Musica.assetManager = assetManager;
     }
 
+    public Music getMedio() {
+        if (medio == null && !getArchivoMedio().equals(""))
+            medio = assetManager.get(getArchivoMedio(), Music.class);
+
+        return medio;
+    }
+    
     public String getArchivoMedio() {
         return RUTA_MUSICA + archivo;
     }
@@ -47,13 +43,6 @@ public class Musica extends AbstractNombrable {
         this();
         setArchivoMedio(nombreArchivo);
         setNombre(nombre);
-    }
-
-    public Music getMedio() {
-        if (medio == null && !getArchivoMedio().equals(""))
-            medio = assetManager.get(getArchivoMedio(), Music.class);
-
-        return medio;
     }
 
     protected void play() {

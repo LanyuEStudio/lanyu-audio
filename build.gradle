@@ -1,29 +1,21 @@
 plugins {
     id 'java-library'
+    id 'eclipse'
 }
 
 group = 'es.lanyu'
-version = '0.0.1'
+version = '1.0.4'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-ext {
-    gdxVersion = "1.9.10"
-}
-
-allprojects {
-    repositories {
-        jcenter()
-        
-        maven { url 'https://jitpack.io' }
-    }
+repositories {
+    jcenter()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-	api 'com.github.LanyuEStudio:lanyu-meta:0.0.1'
-	// Incluye lanyuCommon:v1.0.0 y jsonbeans:0.9
-	api 'com.github.LanyuEStudio:json-libgdx:0.0.1'
-	implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+    api "com.github.LanyuEStudio:json-libgdx:$lanyuVersion"
+    api "com.badlogicgames.gdx:gdx:$gdxVersion"
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
